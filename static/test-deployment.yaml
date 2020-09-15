@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: test
+  name: test
+  namespace: static
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: test
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: test
+    spec:
+      containers:
+      - name: netshoot
+        image: nicolaka/netshoot:latest
+        imagePullPolicy: IfNotPresent
+        args:
+        - sleep
+        - infinity
+        resources:
+          limits:
+            memory: 70Mi
+            cpu: 100m
+          requests:
+            cpu: 100m
+            memory: 70Mi
+        volumeMounts:
+          - mountPath: /etc/ssl/certs/letsencrypt-staging-ca.crt
+            name: root-cas
+            subPath: letsencrypt-staging-ca.crt
+          - mountPath: /etc/ssl/certs/foo.txt
+            name: root-cas
+            subPath: foo.txt
+      volumes:
+        - name: root-cas
+          configMap:
+            name: ca-certs

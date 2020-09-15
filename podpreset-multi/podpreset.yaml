@@ -1,0 +1,22 @@
+apiVersion: settings.k8s.io/v1alpha1
+kind: PodPreset
+metadata:
+  name: ca-injector
+  namespace: podpreset-multi
+spec:
+  selector:
+    matchLabels: {}
+  volumeMounts:
+  - mountPath: /etc/ssl/certs/letsencrypt-staging-ca.crt
+    name: root-cas
+    subPath: letsencrypt-staging-ca.crt
+  - mountPath: /etc/ssl/certs/foo.txt
+    name: root-cas
+    subPath: foo.txt
+  - mountPath: /etc/ssl/certs/bar.txt
+    name: root-cas
+    subPath: bar.txt
+  volumes:
+  - name: root-cas
+    configMap:
+      name: ca-certs
