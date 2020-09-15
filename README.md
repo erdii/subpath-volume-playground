@@ -9,11 +9,11 @@
     - behavior without `subPath` would be: override/shadow target folder on mount
 
 - [./podpreset-single](./podpreset-single) works fine
-  - a podpreset it used to inject a a volume and a volumeMount into pods
+  - a podpreset is used to inject a a volume and a volumeMount into pods
   - `subPath` can be used
 
 - [./podpreset-multi](./podpreset-multi) doesn't work
-  - a podpreset it used to inject a a volume and multiple volumeMounts into pods
+  - a podpreset is used to inject a a volume and multiple volumeMounts into pods
   - apparently podpreset thinks there can only be 1 volumeMount for 1 volume:
     ```
     W0915 06:10:11.718830       1 admission.go:147] conflict occurred while applying podpresets: ca-injector on pod: test-7dd5c6d7b7- err: [merging volume mounts for ca-injector has a conflict on root-cas: 
